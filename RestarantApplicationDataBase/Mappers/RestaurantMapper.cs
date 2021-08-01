@@ -12,14 +12,17 @@ namespace RestarantApplicationDataBase.Mappers
         IMapper mapper;
         public RestaurantMapper()
         {
-            mapper = new MapperConfiguration(config => config.CreateMap<Entitties.Restaurant, DataModels.RestaurantDataModel>()
+            mapper = new MapperConfiguration(config =>
+            {
+                config.CreateMap<Entitties.Restaurant, DataModels.RestaurantDataModel>()
                    .ForMember(x => x.City, c => c.MapFrom(s => s.Adress.City))
                    .ForMember(x => x.HomeNumber, c => c.MapFrom(s => s.Adress.HomeNumber))
-                   .ForMember(x => x.Street, c => c.MapFrom(s => s.Adress.Street))).CreateMapper();
+                   .ForMember(x => x.Street, c => c.MapFrom(s => s.Adress.Street));
 
+                config.CreateMap<Entitties.Dish, DataModels.DishDataModel>();
 
-            mapper = new MapperConfiguration(config => config.CreateMap<Entitties.Dish, DataModels.DishDataModel>()).CreateMapper();
-           
+            }).CreateMapper();
+
             ;
         }
         public DataModels.RestaurantDataModel Map(Entitties.Restaurant restaurant)
@@ -36,5 +39,28 @@ namespace RestarantApplicationDataBase.Mappers
             return mapper.Map<Entitties.Restaurant>(restaurantDataModel);
 
         }
+        public IEnumerable<DataModels.RestaurantDataModel> Map(IEnumerable<Entitties.Restaurant> restaurants)
+        {
+            var list = new List<DataModels.RestaurantDataModel>();
+            foreach (var item in restaurants)
+            {
+              list.Add(mapper.Map<DataModels.RestaurantDataModel>(item));
+
+            }
+            return list;
+            
+        }
+        public IEnumerable<Entitties.Restaurant> Map(IEnumerable<DataModels.RestaurantDataModel> restaurants)
+        {
+            var list = new List<Entitties.Restaurant>();
+            foreach (var item in restaurants)
+            {
+              list.Add(mapper.Map<Entitties.Restaurant>(item));
+
+            }
+            return list;
+            
+        }
     }
 }
+

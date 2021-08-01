@@ -31,6 +31,7 @@ namespace RestaurantApplication
         {
             services.AddDbContext<RestarantApplicationDataBase.RestaurantApplicationDbContext>(options => options.UseSqlServer(ConnectionString));
             services.AddScoped<RestarantApplicationDataBase.Mappers.RestaurantMapper>();
+            services.AddScoped<RestarantApplicationDataBase.Mappers.CreateRestaurantDataModelMapper>();
             services.AddTransient<IRestaurantRepository, RestaurantRepository>();
             services.AddControllers();
             services.AddAutoMapper(this.GetType().Assembly);
