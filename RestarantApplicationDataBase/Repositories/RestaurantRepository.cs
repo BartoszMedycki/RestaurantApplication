@@ -30,7 +30,7 @@ namespace RestarantApplicationDataBase.Repositories
         public IEnumerable<Entitties.Restaurant> GetAllRestaurants()
         {
             var allRestaurants = new List<Restaurant>();
-            var restaurant = dbContext.Restaurants.Include(c=>c.Adress).ToList();
+            var restaurant = dbContext.Restaurants.Include(c=>c.Adress).Include(f=>f.Dishes).ToList();
 
 
 
