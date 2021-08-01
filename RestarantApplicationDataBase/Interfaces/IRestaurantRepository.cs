@@ -10,5 +10,6 @@ namespace RestarantApplicationDataBase.Repositories
         void RemoveRestaurant(int id);
         void UpdateRestaurant(int id, Restaurant restaurant);
         void SaveChanges();
+        public IEnumerable<Restaurant> GetAll();
     }
 }

@@ -30,9 +30,10 @@ namespace RestaurantApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<RestarantApplicationDataBase.RestaurantApplicationDbContext>(options => options.UseSqlServer(ConnectionString));
-            services.AddTransient<IWeatherForecastService, WeatherForecastService>();
+            services.AddScoped<RestarantApplicationDataBase.Mappers.RestaurantMapper>();
             services.AddTransient<IRestaurantRepository, RestaurantRepository>();
             services.AddControllers();
+            services.AddAutoMapper(this.GetType().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

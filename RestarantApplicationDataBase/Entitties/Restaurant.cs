@@ -6,7 +6,7 @@ namespace RestarantApplicationDataBase.Entitties
 {
     public class Restaurant : IEqualityComparer<Restaurant>
     {
-        public Restaurant()
+        public Restaurant() 
         {
 
         }
@@ -15,18 +15,20 @@ namespace RestarantApplicationDataBase.Entitties
         public string Type { get; set; }
         public bool HasDelivery { get; set; }
         public int AdressId { get; set; }
+
+        
         public virtual Adress Adress{ get; set; }
-        public virtual List<Dish> Dishes { get; set; }
+        public virtual  List<Dish> Dishes { get; set; }
 
         public bool Equals(Restaurant x, Restaurant y)
         {
-            if (x.Name == y.Name)  return true;
+            if (x.Name == y.Name) return true;
             else return false;
         }
-      
-                
 
-    public int GetHashCode([DisallowNull] Restaurant obj)
+
+
+        public int GetHashCode([DisallowNull] Restaurant obj)
         {
             return 1;
         }

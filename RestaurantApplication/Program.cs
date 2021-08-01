@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantApplication
 {
-    public class Program
+    public class RestaurantController
     {
         public static void Main(string[] args)
         {

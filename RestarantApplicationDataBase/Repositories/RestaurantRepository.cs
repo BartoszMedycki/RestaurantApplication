@@ -8,19 +8,15 @@ using System.Threading.Tasks;
 
 namespace RestarantApplicationDataBase.Repositories
 {
-    public class RestaurantRepository : IRestaurantRepository
+    public class RestaurantRepository :MainRepository<Restaurant>, IRestaurantRepository
 
     {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly RestaurantApplicationDbContext dbContext;
-        private DbSet<Restaurant> DbSet => dbContext.Restaurants;
+        public override DbSet<Restaurant> DbSet => dbContext.Restaurants;
 
-        public RestaurantRepository(IServiceProvider serviceProvider)
+        public RestaurantRepository(IServiceProvider serviceProvider) : base (serviceProvider)
         {
-            this._serviceProvider = serviceProvider;
-            dbContext = _serviceProvider.GetService(typeof(RestaurantApplicationDbContext)) as RestaurantApplicationDbContext;
-
         }
+        
 
         public void AddRestaurant(Restaurant restaurant)
         {
@@ -34,22 +30,24 @@ namespace RestarantApplicationDataBase.Repositories
         public IEnumerable<Entitties.Restaurant> GetAllRestaurants()
         {
             var allRestaurants = new List<Restaurant>();
-            var restaurant = DbSet;
+            var restaurant = dbContext.Restaurants.Include(c=>c.Adress).ToList();
 
 
 
             foreach (var item in restaurant)
             {
-
+                
                 allRestaurants.Add(item);
+                
+                     
+
+
             }
             return allRestaurants;
 
+
         }
-        public void SaveChanges()
-        {
-            dbContext.SaveChanges();
-        }
+       
         public void UpdateRestaurant(int id, Entitties.Restaurant restaurant)
         {
             var restaurantToUpdate = DbSet.Where(RestaurantId => RestaurantId.Id == id).FirstOrDefault();
